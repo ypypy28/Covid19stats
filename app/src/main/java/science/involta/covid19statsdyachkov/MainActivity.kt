@@ -2,7 +2,6 @@ package science.involta.covid19statsdyachkov
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -28,7 +27,6 @@ class MainActivity: AppCompatActivity() {
     private var navHostFragment: NavHostFragment? = null
 
     private var topTextView: TextView? = null
-    var country: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,27 +40,25 @@ class MainActivity: AppCompatActivity() {
         val mainBottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
         mainBottomNavView.setupWithNavController(navController)
 
-        topTextView = findViewById(R.id.straight_text_view)
+//        topTextView = findViewById(R.id.straight_text_view)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-//        val provinces = viewModel.provinceService.fetchProvinces()
-//        provinces.observeForever(){
-//            Log.d("MAIN-PROVINCE", "size is ${it.size.toString()}")
-//        }
     }
 
     override fun onStart() {
         super.onStart()
 
         if (!checkLocationPermission()) requestPermission()
-        else {
-            getLocation()
-            navigateToProvinces()
-        }
+        getLocation()
+        navigateToCities()
+//        else {
+//            getLocation()
+//            navigateToCities()
+//        }
     }
 
-    fun navigateToProvinces() {
-        navController.navigate(R.id.action_nav_fulllist_to_nav_list_provinces2)
+    fun navigateToCities() {
+        navController.navigate(R.id.action_nav_countries_to_nav_list_cities)
     }
 
     @SuppressLint("MissingPermission")
@@ -74,10 +70,10 @@ class MainActivity: AppCompatActivity() {
                 val country = getCountryFromCoordinates(location.latitude, location.longitude)
                 if (country == "United States") appViewModel.country.value = "US"
                 else appViewModel.country.value = country
-                topTextView?.text = "You are in ${appViewModel.country.value}"
+//                topTextView?.text = "You are in ${appViewModel.country.value}"
 
                 Log.d("LOCATION",
-                 "${location.latitude.toString()}, ${location.longitude.toString()}")
+                 "${location.latitude}, ${location.longitude}")
             } else {
                 Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
                 Log.d("LOCATION",  "NO LOCATION")

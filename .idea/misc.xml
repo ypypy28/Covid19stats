@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/country_small_prev_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/layout/fragment_fulllist.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/layout/fragment_list_cities.xml" value="0.321875" />
         <entry key="app/src/main/res/layout/fragment_list_provinces.xml" value="0.1" />
         <entry key="app/src/main/res/layout/province_small_prev_item.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.33" />

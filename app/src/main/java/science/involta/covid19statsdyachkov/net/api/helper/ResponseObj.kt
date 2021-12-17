@@ -1,6 +1,6 @@
 package science.involta.covid19statsdyachkov.net.api.helper
 
-import science.involta.covid19statsdyachkov.data.Province
+import science.involta.covid19statsdyachkov.data.City
 
 data class ResponseObj(val error: Boolean,
                        val statusCode: Int,
@@ -8,5 +8,5 @@ data class ResponseObj(val error: Boolean,
                        val data: ResponseData) {
 
     data class ResponseData(val lastChecked: String,
-                            val covid19Stats: ArrayList<Province>)
+                            val covid19Stats: ArrayList<City>)
 }

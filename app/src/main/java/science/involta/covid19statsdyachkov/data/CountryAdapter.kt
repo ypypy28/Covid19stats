@@ -44,11 +44,7 @@ class CountryAdapter(
         private val noData: String = itemView.resources.getString(R.string.no_data)
 
         fun bind(country: Country) {
-//            countryName.text = toStringOrNoData(country.name)
-//            infected.text = toStringOrNoData(country.confirmed)
-//            deaths.text = toStringOrNoData(country.deaths)
-//            recovered.text = toStringOrNoData(country.recovered)
-            countryName.text = country.name ?: noData
+            countryName.text = country.name
             infected.text = country.confirmed?.toString() ?: noData
             deaths.text = country.deaths?.toString() ?: noData
             recovered.text = country.recovered?.toString() ?: noData

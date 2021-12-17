@@ -14,63 +14,49 @@ import science.involta.covid19statsdyachkov.net.RetrofitClientInstance
 import science.involta.covid19statsdyachkov.net.api.ICovid19APIService
 import science.involta.covid19statsdyachkov.net.api.helper.ResponseObj
 
-class ProvinceService(application: Application) {
+class CityRepository(application: Application) {
     private val app = application
     private val remoteAPI = RetrofitClientInstance
         .retrofitInstance?.create(ICovid19APIService::class.java)!!
-    private val localAPI = Room.databaseBuilder(app, ProvinceDatabase::class.java, "covidStats")
+    private val localAPI = Room.databaseBuilder(app, CityDatabase::class.java, "covidStats")
         .build().localDAO()
 
-    fun fetchProvinces(countryName: String? = null): LiveData<ArrayList<Province>> {
-        val _provinces = MutableLiveData<ArrayList<Province>>()
-//        val service = RetrofitClientInstance.retrofitInstance?.create(ICovid19APIService::class.java)
+    fun fetchCities(countryName: String? = null): LiveData<ArrayList<City>> {
+        val _cities = MutableLiveData<ArrayList<City>>()
         val call: Call<ResponseObj>?
         if (countryName != null) {
-//            call = service?.getProvincesOf(countryName)
             call = remoteAPI.getProvincesOf(countryName)
         } else {
             call = remoteAPI.getAllProvinces()
         }
-        Log.d("ProvinceService", "in ProvinceService")
-//        call?.enqueue(object: Callback<ResponseObj> {
+        Log.d("CityRepository", "in CityRepository")
         call.enqueue(object: Callback<ResponseObj> {
             override fun onResponse(
                 call: Call<ResponseObj>,
                 response: Response<ResponseObj>
             ) {
-                _provinces.value = response.body()?.data?.covid19Stats
+                _cities.value = response.body()?.data?.covid19Stats
             }
 
             override fun onFailure(call: Call<ResponseObj>, t: Throwable) {
-                Log.d("ProvinceService", "Failure ${t.message}")
+                Log.d("CityRepository", "Failure ${t.message}")
             }
 
         })
 
-        return _provinces
+        return _cities
     }
 
-//    fun updateLocalProvinces(provinces: List<Province>) {
-//        try {
-//            val localDAO = getLocalDAO()
-//            localDAO.insertAllProvinces(provinces)
-//        } catch (e: Exception) {
-//            Log.d("UpdateLocalProvinces Error", e.message.toString())
-//        }
-//    }
-
-    suspend fun updateLocalProvinces(provinces: ArrayList<Province>?) = withContext(Dispatchers.IO){
+    suspend fun updateLocalCities(cities: ArrayList<City>?) = withContext(Dispatchers.IO){
         try {
-//            val localDAO = getLocalDAO()
-//            localDAO.insertAllProvinces(provinces!!)}
-            localAPI.insertAllProvinces(provinces!!)}
+            localAPI.insertAllCities(cities!!)}
         catch (e: Exception) {
-            Log.d("UpdateLocalProvinces Error", e.message.toString() )
+            Log.d("UpdateLocalCities Error", e.message.toString() )
         }
      }
 
 //    internal fun getLocalDAO(): ILocalDAO {
-//        val db = Room.databaseBuilder(app, ProvinceDatabase::class.java, "covidStats").build()
+//        val db = Room.databaseBuilder(app, CityDatabase::class.java, "covidStats").build()
 //        val localDAO = db.localDAO()
 //        return localDAO
 //    }
@@ -81,9 +67,9 @@ class ProvinceService(application: Application) {
         return localAPI.getAllCountries()
     }
 
-    fun getProvincesOf(countryName: String): LiveData<List<Province>> {
+    fun getProvincesOf(countryName: String): LiveData<List<City>> {
 //        val db = getLocalDAO()
 //        return db.getProvincesOf(countryName)
-        return localAPI.getProvincesOf(countryName)
+        return localAPI.getCitiesOf(countryName)
     }
 }

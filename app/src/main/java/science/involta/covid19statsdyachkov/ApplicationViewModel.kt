@@ -4,47 +4,26 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import science.involta.covid19statsdyachkov.data.Country
-import science.involta.covid19statsdyachkov.data.Province
-import science.involta.covid19statsdyachkov.data.ProvinceService
+import science.involta.covid19statsdyachkov.data.City
+import science.involta.covid19statsdyachkov.data.CityRepository
 
 class ApplicationViewModel(app: Application): AndroidViewModel(app) {
-    private var provinceService: ProvinceService = ProvinceService(app)
+    private var cityRepository: CityRepository = CityRepository(app)
     val country = MutableLiveData<String>()
     var countries: LiveData<List<Country>>
-//    var country: String? = "Russia" // dirty hack
-//    var provinces: LiveData<List<Province>> = Transformations.switchMap(country) {
-    var provinces: LiveData<List<Province>> = Transformations.switchMap(country) {
-        provinceService.getProvincesOf(it)
+    var cities: LiveData<List<City>> = Transformations.switchMap(country) {
+        cityRepository.getProvincesOf(it)
     }
-//    var provinces = MutableLiveData<ArrayList<Province>>()
-
-//    fun currentCountryProvinces(): LiveData<ArrayList<Province>> {
-//        return provinceService.fetchProvinces(country)
-//    }
-
-//    fun fetchAllCountries(): LiveData<List<Country>> {
-//        // TODO
-//
-//        return countries
-//
-//    }
 
 
     init {
-        provinceService.fetchProvinces().observeForever{
+        cityRepository.fetchCities().observeForever{
             viewModelScope.launch {
-                provinceService.updateLocalProvinces(it)
+                cityRepository.updateLocalCities(it)
             }
         }
 
-//        provinces.observeForever {
-////            viewModelScope.launch{
-////                provinceService.updateLocalProvinces(it)
-////            }
-//            provinceService.updateLocalProvinces(it)
-//
-//        }
-        countries = provinceService.getAllCountries()
+        countries = cityRepository.getAllCountries()
     }
 
 }

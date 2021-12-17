@@ -6,19 +6,19 @@ import androidx.room.*
 @Dao
 interface ILocalDAO {
 
-    @Query("SELECT * FROM provinces")
-    fun getAllProvinces(): LiveData<List<Province>>
+    @Query("SELECT * FROM cities")
+    fun getAllCities(): LiveData<List<City>>
 
-    @Query("SELECT * FROM provinces WHERE country = :countryName")
-    fun getProvincesOf(countryName: String): LiveData<List<Province>>
+    @Query("SELECT * FROM cities WHERE country = :countryName")
+    fun getCitiesOf(countryName: String): LiveData<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllProvinces(provinces: List<Province>)
+    fun insertAllCities(cities: List<City>)
 
     @Delete
-    fun delete(province: Province)
+    fun delete(city: City)
 
-    @Query("SELECT country, confirmed, deaths, recovered FROM provinces GROUP BY country")
+    @Query("SELECT country, confirmed, deaths, recovered FROM cities GROUP BY country")
     fun getAllCountries(): LiveData<List<Country>>
 
 }

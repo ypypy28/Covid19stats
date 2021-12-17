@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_fulllist"
+        android:id="@+id/nav_countries"
         android:title="@string/full_list_nav"
         android:icon="@drawable/baseline_list_alt_black_24dp"
         />

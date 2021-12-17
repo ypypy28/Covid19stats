@@ -4,30 +4,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigator"
-    app:startDestination="@id/nav_fulllist">
-<!--    app:startDestination="@id/nav_list_provinces">-->
+    app:startDestination="@id/nav_countries">
 
 
     <fragment
-        android:id="@+id/nav_fulllist"
-        android:name="science.involta.covid19statsdyachkov.FragmentFullList"
+        android:id="@+id/nav_countries"
+        android:name="science.involta.covid19statsdyachkov.FragmentCountries"
         android:label="@string/full_list_nav"
-        tools:layout="@layout/fragment_fulllist" >
+        tools:layout="@layout/fragment_countries" >
         <action
-            android:id="@+id/action_nav_fulllist_to_nav_list_provinces2"
-            app:destination="@id/nav_list_provinces" />
+            android:id="@+id/action_nav_countries_to_nav_list_cities"
+            app:destination="@id/nav_list_cities" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_list_provinces"
-        android:name="science.involta.covid19statsdyachkov.FragmentListProvinces"
+        android:id="@+id/nav_list_cities"
+        android:name="science.involta.covid19statsdyachkov.FragmentListCities"
         android:label="@string/favorites_nav"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_nav_list_provinces_to_nav_fulllist2"
-            app:destination="@id/nav_fulllist" />
+            android:id="@+id/action_nav_list_cities_to_nav_countries"
+            app:destination="@id/nav_countries" />
         <action
-            android:id="@+id/action_nav_list_provinces_to_nav_favorites"
+            android:id="@+id/action_nav_list_cities_to_nav_favorites"
             app:destination="@id/nav_favorites" />
     </fragment>
 
@@ -37,8 +36,8 @@
         android:label="@string/favorites_nav"
         tools:layout="@layout/fragment_favorites" >
         <action
-            android:id="@+id/action_nav_favorites_to_nav_list_provinces"
-            app:destination="@id/nav_list_provinces" />
+            android:id="@+id/action_nav_favorites_to_nav_list_cities"
+            app:destination="@id/nav_list_cities" />
     </fragment>
 
 </navigation>

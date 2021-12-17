@@ -8,17 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction.*
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import science.involta.covid19statsdyachkov.data.Country
 import science.involta.covid19statsdyachkov.data.CountryAdapter
 
-class FragmentFullList: Fragment(R.layout.fragment_fulllist){
+class FragmentCountries: Fragment(R.layout.fragment_countries){
 
     private lateinit var appViewModel: ApplicationViewModel
     private var countryAdapter: CountryAdapter? = null
@@ -29,45 +26,39 @@ class FragmentFullList: Fragment(R.layout.fragment_fulllist){
         savedInstanceState: Bundle?,
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_fulllist, container, false)
+        val view = inflater.inflate(R.layout.fragment_countries, container, false)
 
         appViewModel = ViewModelProvider(requireActivity()).get(ApplicationViewModel::class.java)
 
-        //TODO fetchCountries
-//        appViewModel.fetchAllCountries().observeForever {
-//            countries = it
-//            Log.d("FragmentFullList in observe", "list size is ${it.size}")
-//            setupRecyclerView(view)
-//        }
         appViewModel.countries.observe(viewLifecycleOwner, {
             countries = it
-            Log.d("FragmentFullList in observe", "list size is ${it.size}")
+            Log.d("FragmentCountries in observe", "list size is ${it.size}")
             setupRecyclerView(view)
         })
 
         setupRecyclerView(view)
 
-        Log.d("FragmentFullList", " list size is ${countries.size}")
+        Log.d("FragmentCountries", " list size is ${countries.size}")
 
         return view
     }
 
     private fun setupRecyclerView(view: View) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_fulllist)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_countries)
         countryAdapter = CountryAdapter(countries,
             object: CountryAdapter.CountryClickListener {
                 override fun onCountryClick(country: Country?) {
                     Toast.makeText(getContext(), "${country?.name}", Toast.LENGTH_SHORT).show()
-                    Log.d("from FragmentFullList", "Clicked on country ${country!!.name}")
+                    Log.d("from FragmentCountries", "Clicked on country ${country!!.name}")
                     appViewModel.country.value = country.name
 //                    activity!!.supportFragmentManager.beginTransaction()
 //                        .setReorderingAllowed(true)
-//                        .replace(R.id.fragment_container_view, FragmentListProvinces())
+//                        .replace(R.id.fragment_container_view, FragmentListCities())
 //                        .addToBackStack(null)
 //                        .commit()
 
-                    activity!!.findNavController(R.id.recycler_fulllist)
-                        .navigate(R.id.action_nav_fulllist_to_nav_list_provinces2)
+                    activity!!.findNavController(R.id.recycler_countries)
+                        .navigate(R.id.action_nav_countries_to_nav_list_cities)
                 }
             })
 
