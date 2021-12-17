@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Covid19statsDyachkov</string>
+    <string name="full_list_nav">Все страны</string>
+    <string name="favorites_nav">Избранные</string>
+    <string name="total_infected">заразилось</string>
+    <string name="total_deaths">умерло</string>
+    <string name="total_recovered">выздоровело</string>
+    <string name="no_data">нет данных</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Covid19statsDyachkov</string>
+    <string name="full_list_nav">All Countries</string>
+    <string name="favorites_nav">Favorites</string>
+    <string name="total_infected">total infected</string>
+    <string name="total_deaths">total deaths</string>
+    <string name="total_recovered">total recovered</string>
+    <string name="no_data">no data</string>
+</resources>

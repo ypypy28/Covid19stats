@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigator"
+    app:startDestination="@id/nav_fulllist">
+<!--    app:startDestination="@id/nav_list_provinces">-->
+
+
+    <fragment
+        android:id="@+id/nav_fulllist"
+        android:name="science.involta.covid19statsdyachkov.FragmentFullList"
+        android:label="@string/full_list_nav"
+        tools:layout="@layout/fragment_fulllist" />
+
+    <fragment
+        android:id="@+id/nav_list_provinces"
+        android:name="science.involta.covid19statsdyachkov.FragmentListProvinces"
+        android:label="@string/favorites_nav"
+        tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="science.involta.covid19statsdyachkov.FragmentFavorites"
+        android:label="@string/favorites_nav"
+        tools:layout="@layout/fragment_favorites" />
+
+</navigation>
