@@ -18,7 +18,7 @@ class CityAdapter(
         viewType: Int
     ): CityAdapter.CityViewHolder {
          val view: View = LayoutInflater.from(parent.context)
-             .inflate(R.layout.province_small_prev_item, parent, false)
+             .inflate(R.layout.city_small_prev_item, parent, false)
         view.setOnClickListener {v: View -> onCityClickListener.onCityClick(v.tag as City)}
 
         return CityViewHolder(view)
