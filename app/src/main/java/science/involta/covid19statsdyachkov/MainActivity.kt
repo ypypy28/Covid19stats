@@ -57,12 +57,12 @@ class MainActivity: AppCompatActivity() {
         if (!checkLocationPermission()) requestPermission()
         else {
             getLocation()
-            this.supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_view, FragmentListProvinces())
-                .addToBackStack(null)
-                .commit()
+            navigateToProvinces()
         }
+    }
+
+    fun navigateToProvinces() {
+        navController.navigate(R.id.action_nav_fulllist_to_nav_list_provinces2)
     }
 
     @SuppressLint("MissingPermission")
@@ -87,7 +87,7 @@ class MainActivity: AppCompatActivity() {
 
     private fun getCountryFromCoordinates(lat: Double, lon: Double): String {
 
-        val geocoder: Geocoder = Geocoder(this, Locale.getDefault())
+        val geocoder = Geocoder(this, Locale.getDefault())
         val adresses = geocoder.getFromLocation(lat, lon, 1)
         return adresses[0].countryName
 
