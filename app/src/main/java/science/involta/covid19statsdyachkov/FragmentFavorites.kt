@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import science.involta.covid19statsdyachkov.data.Country
+import science.involta.covid19statsdyachkov.data.models.Country
 import science.involta.covid19statsdyachkov.data.CountryAdapter
 
 class FragmentFavorites: Fragment(R.layout.fragment_favorites) {

@@ -1,6 +1,5 @@
 package science.involta.covid19statsdyachkov.data
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import science.involta.covid19statsdyachkov.R
+import science.involta.covid19statsdyachkov.data.models.Country
 
 class CountryAdapter(
     private val countries: List<Country>,

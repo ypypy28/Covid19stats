@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import science.involta.covid19statsdyachkov.R
+import science.involta.covid19statsdyachkov.data.models.City
 
 class CityAdapter(
     private val cities: List<City>,

@@ -1,4 +1,4 @@
-package science.involta.covid19statsdyachkov.data
+package science.involta.covid19statsdyachkov.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

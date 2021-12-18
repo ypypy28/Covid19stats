@@ -9,7 +9,6 @@ interface ICovid19APIService {
 
     @GET("https://covid19-api.weedmark.systems/api/v1/stats")
     fun getAllProvinces(): Call<ResponseObj>
-//    fun getAllProvinces(): Call<ArrayList<Province>>
 
     @GET("https://covid19-api.weedmark.systems/api/v1/stats")
     fun getProvincesOf(

@@ -1,6 +1,6 @@
 package science.involta.covid19statsdyachkov.net.api.helper
 
-import science.involta.covid19statsdyachkov.data.City
+import science.involta.covid19statsdyachkov.data.models.City
 
 data class ResponseObj(val error: Boolean,
                        val statusCode: Int,

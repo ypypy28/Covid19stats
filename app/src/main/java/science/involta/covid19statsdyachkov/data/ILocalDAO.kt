@@ -2,6 +2,9 @@ package science.involta.covid19statsdyachkov.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import science.involta.covid19statsdyachkov.data.models.City
+import science.involta.covid19statsdyachkov.data.models.Country
+import science.involta.covid19statsdyachkov.data.models.FavoriteCountry
 
 @Dao
 interface ILocalDAO {

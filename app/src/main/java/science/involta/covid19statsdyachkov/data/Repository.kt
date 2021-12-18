@@ -10,6 +10,9 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import science.involta.covid19statsdyachkov.data.models.City
+import science.involta.covid19statsdyachkov.data.models.Country
+import science.involta.covid19statsdyachkov.data.models.FavoriteCountry
 import science.involta.covid19statsdyachkov.net.RetrofitClientInstance
 import science.involta.covid19statsdyachkov.net.api.ICovid19APIService
 import science.involta.covid19statsdyachkov.net.api.helper.ResponseObj
@@ -55,21 +58,11 @@ class Repository(application: Application) {
         }
      }
 
-//    internal fun getLocalDAO(): ILocalDAO {
-//        val db = Room.databaseBuilder(app, CityDatabase::class.java, "covidStats").build()
-//        val localDAO = db.localDAO()
-//        return localDAO
-//    }
-
     fun getAllCountries(): LiveData<List<Country>> {
-//        val db = getLocalDAO()
-//        return db.getAllCountries()
         return localAPI.getAllCountries()
     }
 
     fun getProvincesOf(countryName: String): LiveData<List<City>> {
-//        val db = getLocalDAO()
-//        return db.getProvincesOf(countryName)
         return localAPI.getCitiesOf(countryName)
     }
 

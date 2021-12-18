@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,8 +24,6 @@ class MainActivity: AppCompatActivity() {
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private lateinit var navController: NavController
     private var navHostFragment: NavHostFragment? = null
-
-    private var topTextView: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +48,6 @@ class MainActivity: AppCompatActivity() {
         if (!checkLocationPermission()) requestPermission()
         getLocation()
         navigateToCities()
-//        else {
-//            getLocation()
-//            navigateToCities()
-//        }
     }
 
     fun navigateToCities() {

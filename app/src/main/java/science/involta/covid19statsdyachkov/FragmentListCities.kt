@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import science.involta.covid19statsdyachkov.data.City
+import science.involta.covid19statsdyachkov.data.models.City
 import science.involta.covid19statsdyachkov.data.CityAdapter
 
 class FragmentListCities: Fragment(R.layout.fragment_list_cities) {
