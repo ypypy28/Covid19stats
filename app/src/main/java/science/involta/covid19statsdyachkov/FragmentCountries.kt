@@ -30,9 +30,12 @@ class FragmentCountries: Fragment(R.layout.fragment_countries){
         appViewModel = ViewModelProvider(requireActivity()).get(ApplicationViewModel::class.java)
 
         appViewModel.countries.observe(viewLifecycleOwner, {
-            countries = it
-            Log.d("FragmentCountries in observe", "list size is ${it.size}")
-            setupRecyclerView(view)
+            // if sizes are equal, change was just n adding/deleting to favoritesl, no need to redraw
+            if (countries.size != it.size) {
+                countries = it
+                Log.d("FragmentCountries in observe", "list size is ${it.size}")
+                setupRecyclerView(view)
+            }
         })
 
         setupRecyclerView(view)
