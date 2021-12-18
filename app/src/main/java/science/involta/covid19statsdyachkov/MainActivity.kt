@@ -67,13 +67,18 @@ class MainActivity: AppCompatActivity() {
             if (task.isSuccessful && task.result != null) {
                 val location = task.result
 
-                val country = getCountryFromCoordinates(location.latitude, location.longitude)
-                if (country == "United States") appViewModel.country.value = "US"
-                else appViewModel.country.value = country
+                Log.d("LOCATION", "${location.latitude}, ${location.longitude}")
+
+                try {
+                    val country = getCountryFromCoordinates(location.latitude, location.longitude)
+                    if (country == "United States") appViewModel.country.value = "US"
+                    else appViewModel.country.value = country
+                } catch (e: java.io.IOException) {
+                    Log.d("LOCATION exception", e.message.toString())
+                    Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
+                }
 //                topTextView?.text = "You are in ${appViewModel.country.value}"
 
-                Log.d("LOCATION",
-                 "${location.latitude}, ${location.longitude}")
             } else {
                 Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
                 Log.d("LOCATION",  "NO LOCATION")

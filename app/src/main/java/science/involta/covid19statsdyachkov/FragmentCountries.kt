@@ -5,9 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,9 +45,9 @@ class FragmentCountries: Fragment(R.layout.fragment_countries){
     private fun setupRecyclerView(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_countries)
         countryAdapter = CountryAdapter(countries,
-            object: CountryAdapter.CountryClickListener {
+            object : CountryAdapter.CountryClickListener {
                 override fun onCountryClick(country: Country?) {
-                    Toast.makeText(getContext(), "${country?.name}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(getContext(), "${country?.name}", Toast.LENGTH_SHORT).show()
                     Log.d("from FragmentCountries", "Clicked on country ${country!!.name}")
                     appViewModel.country.value = country.name
 //                    activity!!.supportFragmentManager.beginTransaction()
@@ -59,6 +58,12 @@ class FragmentCountries: Fragment(R.layout.fragment_countries){
 
                     activity!!.findNavController(R.id.recycler_countries)
                         .navigate(R.id.action_nav_countries_to_nav_list_cities)
+                }
+
+                override fun onFavClick(v: AppCompatImageView) {
+                    super.onFavClick(v)
+                    Log.d("FragmentCountry", "OnFavCLick, tag ${v.tag}")
+                    appViewModel.toggleFavoriteCountry(v.tag as Country)
                 }
             })
 

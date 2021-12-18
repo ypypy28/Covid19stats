@@ -48,13 +48,13 @@ class FragmentListCities: Fragment(R.layout.fragment_list_cities) {
 
         Log.d("FragmentListCities", "size is ${cities.size}")
 //        cities = mutableListOf(
-//            City(name="Texas", country="United States", keyId='Texas, United States', confirmed=2000, deaths=1000, recovered=800),
-//            City(name="Ivanovkaya", country="Russia", keyId='Ivanovskaya, Russia', confirmed=4037, deaths=2101, recovered=1706),
-//            City(name="Vladimirskaya", country="Russia", keyId='Vladimirskaya, Russia', confirmed=4037, deaths=2101, recovered=1706),
-//            City(name="Tennesy", country="Uniteed States", keyId='Tennesy, United States', confirmed=4037, deaths=2101, recovered=1706),
-//            City(name="Yaroslavskaya", country="Russia", keyId='Yaroslavskaya, Russia', confirmed=14037, deaths=5110, recovered=7048),
-//            City(name="Moscow", country="Russia", keyId='Moscow, Russia', confirmed=897037, deaths=121013, recovered=65006),
-//            City(name="Moskovskaya", country="Russia", keyId='Moskovskaya, Russia', confirmed=4037, deaths=2101, recovered=1706),
+//            City(name="Texas", country="United States", keyId="Texas, United States", confirmed=2000, deaths=1000, recovered=800),
+//            City(name="Ivanovkaya", country="Russia", keyId="Ivanovskaya, Russia", confirmed=4037, deaths=2101, recovered=1706),
+//            City(name="Vladimirskaya", country="Russia", keyId="Vladimirskaya, Russia", confirmed=4037, deaths=2101, recovered=1706),
+//            City(name="Tennesy", country="Uniteed States", keyId="Tennesy, United States", confirmed=4037, deaths=2101, recovered=1706),
+//            City(name="Yaroslavskaya", country="Russia", keyId="Yaroslavskaya, Russia", confirmed=14037, deaths=5110, recovered=7048),
+//            City(name="Moscow", country="Russia", keyId="Moscow, Russia", confirmed=897037, deaths=121013, recovered=65006),
+//            City(name="Moskovskaya", country="Russia", keyId="Moskovskaya, Russia", confirmed=4037, deaths=2101, recovered=1706),
 //        )
 
         setupRecyclerView(view)

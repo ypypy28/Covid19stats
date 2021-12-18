@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
-import science.involta.covid19statsdyachkov.ApplicationViewModel
 import science.involta.covid19statsdyachkov.R
 
 class CountryAdapter(
@@ -22,6 +21,11 @@ class CountryAdapter(
          val view: View = LayoutInflater.from(parent.context)
              .inflate(R.layout.country_small_prev_item, parent, false)
         view.setOnClickListener {v: View -> onCountryClickListener.onCountryClick(v.tag as Country)}
+
+        val viewFavImg: View = view.findViewById<AppCompatImageView>(R.id.fav_img)
+        viewFavImg.setOnClickListener{
+            onCountryClickListener.onFavClick(it as AppCompatImageView)
+        }
 
         return CountryViewHolder(view)
     }
@@ -41,6 +45,7 @@ class CountryAdapter(
         private val infected: TextView = itemView.findViewById(R.id.country_infected_total_num)
         private val deaths: TextView = itemView.findViewById(R.id.country_deaths_total_num)
         private val recovered: TextView = itemView.findViewById(R.id.country_recovered_total_num)
+        private val favorite: AppCompatImageView = itemView.findViewById(R.id.fav_img)
         private val noData: String = itemView.resources.getString(R.string.no_data)
 
         fun bind(country: Country) {
@@ -48,13 +53,25 @@ class CountryAdapter(
             infected.text = country.confirmed?.toString() ?: noData
             deaths.text = country.deaths?.toString() ?: noData
             recovered.text = country.recovered?.toString() ?: noData
+            if (country.isFavorite) favorite.setImageResource(R.drawable.baseline_favorite_black_24dp)
+            else favorite.setImageResource(R.drawable.baseline_favorite_border_black_24dp)
+
+            val viewFavImg: View = itemView.findViewById<AppCompatImageView>(R.id.fav_img)
+            viewFavImg.tag = country
         }
 
     }
 
     interface CountryClickListener {
-        fun onCountryClick(country: Country?) {
-            Log.d("COUNTRY CLICK", "CLICK. YOU SHOULD NEVER SEE THIS")
+        fun onCountryClick(country: Country?)
+
+        fun onFavClick(v: AppCompatImageView) {
+            val country = v.tag as Country
+            country.isFavorite = !country.isFavorite
+
+            if (country.isFavorite) v.setImageResource(R.drawable.baseline_favorite_black_24dp)
+            else v.setImageResource(R.drawable.baseline_favorite_border_black_24dp)
         }
     }
+
 }

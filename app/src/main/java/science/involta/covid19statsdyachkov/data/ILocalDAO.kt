@@ -16,9 +16,32 @@ interface ILocalDAO {
     fun insertAllCities(cities: List<City>)
 
     @Delete
-    fun delete(city: City)
+    fun deleteOneCity(city: City)
 
-    @Query("SELECT country, confirmed, deaths, recovered FROM cities GROUP BY country")
+    @Query("""
+        SELECT
+        c.country country, sum(c.confirmed) confirmed, sum(c.deaths) deaths, sum(c.recovered) recovered,
+        f.country IS NOT NULL as isFavorite
+        FROM cities c
+        LEFT OUTER JOIN favorites f ON c.country = f.country
+        GROUP BY c.country
+    """)
+
     fun getAllCountries(): LiveData<List<Country>>
 
+    @Query("""
+        SELECT
+        c.country country, sum(c.confirmed) confirmed, sum(c.deaths) deaths, sum(c.recovered) recovered,
+        f.country IS NOT NULL as isFavorite
+        FROM cities c
+        JOIN favorites f ON c.country = f.country
+        GROUP BY c.country
+    """)
+    fun getFavoriteCountries(): LiveData<List<Country>>
+
+    @Insert
+    fun addToFavorites(country: FavoriteCountry)
+
+    @Delete
+    fun removeFromFavorites(country: FavoriteCountry)
 }

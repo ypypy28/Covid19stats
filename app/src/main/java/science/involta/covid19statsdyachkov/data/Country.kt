@@ -8,4 +8,5 @@ data class Country(@SerializedName("country")
                    var name: String,
                    var confirmed: Int?,
                    var deaths: Int?,
-                   var recovered: Int?)
+                   var recovered: Int?,
+                   var isFavorite: Boolean = false)

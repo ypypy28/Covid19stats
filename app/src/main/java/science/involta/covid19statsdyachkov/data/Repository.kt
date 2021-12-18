@@ -14,7 +14,7 @@ import science.involta.covid19statsdyachkov.net.RetrofitClientInstance
 import science.involta.covid19statsdyachkov.net.api.ICovid19APIService
 import science.involta.covid19statsdyachkov.net.api.helper.ResponseObj
 
-class CityRepository(application: Application) {
+class Repository(application: Application) {
     private val app = application
     private val remoteAPI = RetrofitClientInstance
         .retrofitInstance?.create(ICovid19APIService::class.java)!!
@@ -29,7 +29,7 @@ class CityRepository(application: Application) {
         } else {
             call = remoteAPI.getAllProvinces()
         }
-        Log.d("CityRepository", "in CityRepository")
+        Log.d("Repository", "in Repository")
         call.enqueue(object: Callback<ResponseObj> {
             override fun onResponse(
                 call: Call<ResponseObj>,
@@ -39,7 +39,7 @@ class CityRepository(application: Application) {
             }
 
             override fun onFailure(call: Call<ResponseObj>, t: Throwable) {
-                Log.d("CityRepository", "Failure ${t.message}")
+                Log.d("Repository", "Failure ${t.message}")
             }
 
         })
@@ -71,5 +71,17 @@ class CityRepository(application: Application) {
 //        val db = getLocalDAO()
 //        return db.getProvincesOf(countryName)
         return localAPI.getCitiesOf(countryName)
+    }
+
+    fun getFavoriteCountries(): LiveData<List<Country>> {
+        return localAPI.getFavoriteCountries()
+    }
+
+    suspend fun addCountryToFavorites(country: Country) = withContext(Dispatchers.IO) {
+        localAPI.addToFavorites(FavoriteCountry(country.name))
+    }
+
+    suspend fun removeCountryFromFavorites(country: Country) = withContext(Dispatchers.IO) {
+        localAPI.removeFromFavorites(FavoriteCountry(country.name))
     }
 }

@@ -6,4 +6,5 @@
     <string name="total_deaths">total deaths</string>
     <string name="total_recovered">total recovered</string>
     <string name="no_data">no data</string>
+    <string name="fragment_favorites_placeholder">to add in favorites, click on a heart on a Country in the list of all countries</string>
 </resources>
