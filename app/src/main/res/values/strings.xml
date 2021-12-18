@@ -8,4 +8,8 @@
     <string name="no_data">no data</string>
     <string name="fragment_favorites_placeholder">to add in favorites, click on a heart on a Country in the list of all countries</string>
     <string name="lastUpdateString">Updated</string>
+    <string name="no_country_location_data">No location data</string>
+    <string name="dont_ask_for_permission_again">Don\'t ask for permission again</string>
+    <string name="permission_refused">Permission refused</string>
+    <string name="permission_denied">Permission denied</string>
 </resources>

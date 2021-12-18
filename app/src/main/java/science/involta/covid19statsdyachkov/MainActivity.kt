@@ -25,9 +25,20 @@ class MainActivity: AppCompatActivity() {
     private lateinit var navController: NavController
     private var navHostFragment: NavHostFragment? = null
 
+    // maybe move to mainViewModel when this section will become too large
+    private lateinit var noCountryLocationData: String
+    private lateinit var dontAskForPermissionAgain: String
+    private lateinit var permissionRefused: String
+    private lateinit var permissionDenied: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        noCountryLocationData = resources.getString(R.string.no_country_location_data)
+        dontAskForPermissionAgain = resources.getString(R.string.dont_ask_for_permission_again)
+        permissionRefused = resources.getString(R.string.permission_refused)
+        permissionDenied = resources.getString(R.string.permission_denied)
 
         appViewModel = ViewModelProvider(this).get(ApplicationViewModel::class.java)
 
@@ -37,7 +48,6 @@ class MainActivity: AppCompatActivity() {
         val mainBottomNavView = findViewById<BottomNavigationView>(R.id.bottomNavView)
         mainBottomNavView.setupWithNavController(navController)
 
-//        topTextView = findViewById(R.id.straight_text_view)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
     }
@@ -72,12 +82,12 @@ class MainActivity: AppCompatActivity() {
                     else appViewModel.country.value = country
                 } catch (e: java.io.IOException) {
                     Log.d("LOCATION exception", e.message.toString())
-                    Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, noCountryLocationData, Toast.LENGTH_SHORT).show()
                     navigateFromCitiesToCountries()
                 }
 
             } else {
-                Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, noCountryLocationData, Toast.LENGTH_SHORT).show()
                 Log.d("LOCATION",  "NO LOCATION")
                 navigateFromCitiesToCountries()
             }
@@ -86,7 +96,7 @@ class MainActivity: AppCompatActivity() {
 
     private fun getCountryFromCoordinates(lat: Double, lon: Double): String {
 
-        // set Locale to US because remote api sends name of Country in english
+        // set Locale to US because remote API sends name of Country in english
         val geocoder = Geocoder(this, Locale.US)
         val adresses = geocoder.getFromLocation(lat, lon, 1)
         return adresses[0].countryName
@@ -111,7 +121,7 @@ class MainActivity: AppCompatActivity() {
         if (dontAskMeAgain) {
             //тут мы можем попросить пользователя, не будет
             //ли он против если мы ему покажем запрос на разрешение
-            Toast.makeText(this, "Не запрашивать больше", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, dontAskForPermissionAgain, Toast.LENGTH_SHORT).show()
         } else {
             requestLocationPermission()
         }
@@ -122,11 +132,11 @@ class MainActivity: AppCompatActivity() {
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults.size <= 0) {
-                Toast.makeText(this, "Пользователь отклонил запрос", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, permissionRefused, Toast.LENGTH_SHORT).show()
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation()
             } else {
-                Toast.makeText(this, "Пользователь запретил использование геолокации", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, permissionDenied, Toast.LENGTH_SHORT).show()
             }
         }
     }

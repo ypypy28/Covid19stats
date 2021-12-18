@@ -9,4 +9,8 @@
     <string name="no_data">нет данных</string>
     <string name="fragment_favorites_placeholder">Чтобы добавить страну в избранное, кликайте на сердечко</string>
     <string name="lastUpdateString">Обновлено</string>
+    <string name="no_country_location_data">Нет данных о геолокации</string>
+    <string name="dont_ask_for_permission_again">Не запрашивать больше</string>
+    <string name="permission_refused">Пользователь отклонил запрос</string>
+    <string name="permission_denied">Пользователь запретил использование геолокации</string>
 </resources>
