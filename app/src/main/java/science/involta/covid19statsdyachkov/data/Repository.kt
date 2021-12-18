@@ -23,29 +23,35 @@ class Repository(application: Application) {
         .build().localDAO()
 
     fun fetchData(scope: CoroutineScope, countryName: String? = null) {
-        val call: Call<ResponseObj>?
-        if (countryName != null) {
-            call = remoteAPI.getProvincesOf(countryName)
-        } else {
-            call = remoteAPI.getAllProvinces()
-        }
-
-        call.enqueue(object: Callback<ResponseObj> {
-            override fun onResponse(
-                call: Call<ResponseObj>,
-                response: Response<ResponseObj>
-            ) {
-                scope.launch {
-                    updateLocalCities(response.body()?.data?.covid19Stats)
+        scope.launch {
+            while (true) {
+                val call: Call<ResponseObj>?
+                if (countryName != null) {
+                    call = remoteAPI.getProvincesOf(countryName)
+                } else {
+                    call = remoteAPI.getAllProvinces()
                 }
+
+                call.enqueue(object : Callback<ResponseObj> {
+                    override fun onResponse(
+                        call: Call<ResponseObj>,
+                        response: Response<ResponseObj>
+                    ) {
+                        scope.launch {
+                            updateLocalCities(response.body()?.data?.covid19Stats)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseObj>, t: Throwable) {
+                        Log.d("Repository", "Failure ${t.message}")
+                    }
+
+                })
+                // Sleeping until the next data update in the API
+                // API updates once in an hour
+                delay(1000*60*60)
             }
-
-            override fun onFailure(call: Call<ResponseObj>, t: Throwable) {
-                Log.d("Repository", "Failure ${t.message}")
-            }
-
-        })
-
+        }
     }
 
     suspend fun updateLocalCities(cities: List<City>?) = withContext(Dispatchers.IO){
