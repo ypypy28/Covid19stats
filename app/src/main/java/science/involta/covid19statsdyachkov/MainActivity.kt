@@ -47,12 +47,12 @@ class MainActivity: AppCompatActivity() {
 
         if (!checkLocationPermission()) requestPermission()
         getLocation()
-        navigateToCities()
+//        navigateToCities()
     }
 
-    fun navigateToCities() {
-        navController.navigate(R.id.action_nav_countries_to_nav_list_cities)
-    }
+//    fun navigateToCities() {
+//        navController.navigate(R.id.action_nav_countries_to_nav_list_cities)
+//    }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
