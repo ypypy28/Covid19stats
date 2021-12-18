@@ -87,7 +87,7 @@ class MainActivity: AppCompatActivity() {
 
     private fun getCountryFromCoordinates(lat: Double, lon: Double): String {
 
-        // setting Locale.US because remote api sends name of Country in english
+        // set Locale to US because remote api sends name of Country in english
         val geocoder = Geocoder(this, Locale.US)
         val adresses = geocoder.getFromLocation(lat, lon, 1)
         return adresses[0].countryName
