@@ -59,7 +59,7 @@ class CityAdapter(
 
     interface CityClickListener {
         fun onCityClick(city: City?) {
-            Log.d("City CLICK", "CLICK")
+            Log.d("onCityClick on interface", "NEVER SHOULD SEE THIS, OVERRIDE onCityClick")
         }
     }
 }

@@ -3,10 +3,8 @@ package science.involta.covid19statsdyachkov.data
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,21 +22,22 @@ class Repository(application: Application) {
     private val localAPI = Room.databaseBuilder(app, CityDatabase::class.java, "covidStats")
         .build().localDAO()
 
-    fun fetchCities(countryName: String? = null): LiveData<ArrayList<City>> {
-        val _cities = MutableLiveData<ArrayList<City>>()
+    fun fetchData(scope: CoroutineScope, countryName: String? = null) {
         val call: Call<ResponseObj>?
         if (countryName != null) {
             call = remoteAPI.getProvincesOf(countryName)
         } else {
             call = remoteAPI.getAllProvinces()
         }
-        Log.d("Repository", "in Repository")
+
         call.enqueue(object: Callback<ResponseObj> {
             override fun onResponse(
                 call: Call<ResponseObj>,
                 response: Response<ResponseObj>
             ) {
-                _cities.value = response.body()?.data?.covid19Stats
+                scope.launch {
+                    updateLocalCities(response.body()?.data?.covid19Stats)
+                }
             }
 
             override fun onFailure(call: Call<ResponseObj>, t: Throwable) {
@@ -47,10 +46,9 @@ class Repository(application: Application) {
 
         })
 
-        return _cities
     }
 
-    suspend fun updateLocalCities(cities: ArrayList<City>?) = withContext(Dispatchers.IO){
+    suspend fun updateLocalCities(cities: List<City>?) = withContext(Dispatchers.IO){
         try {
             localAPI.insertAllCities(cities!!)}
         catch (e: Exception) {
@@ -62,7 +60,7 @@ class Repository(application: Application) {
         return localAPI.getAllCountries()
     }
 
-    fun getProvincesOf(countryName: String): LiveData<List<City>> {
+    fun getCitiesOf(countryName: String): LiveData<List<City>> {
         return localAPI.getCitiesOf(countryName)
     }
 

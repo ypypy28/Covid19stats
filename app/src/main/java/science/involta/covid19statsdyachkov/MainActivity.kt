@@ -47,12 +47,16 @@ class MainActivity: AppCompatActivity() {
 
         if (!checkLocationPermission()) requestPermission()
         getLocation()
-//        navigateToCities()
+//        navigateFromCountriesToCities()
     }
 
-//    fun navigateToCities() {
-//        navController.navigate(R.id.action_nav_countries_to_nav_list_cities)
-//    }
+    fun navigateFromCountriesToCities() {
+        navController.navigate(R.id.action_nav_countries_to_nav_list_cities)
+    }
+
+    fun navigateFromCitiesToCountries() {
+        navController.navigate(R.id.action_nav_list_cities_to_nav_countries)
+    }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
@@ -69,11 +73,13 @@ class MainActivity: AppCompatActivity() {
                 } catch (e: java.io.IOException) {
                     Log.d("LOCATION exception", e.message.toString())
                     Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
+                    navigateFromCitiesToCountries()
                 }
 
             } else {
                 Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
                 Log.d("LOCATION",  "NO LOCATION")
+                navigateFromCitiesToCountries()
             }
         }
     }

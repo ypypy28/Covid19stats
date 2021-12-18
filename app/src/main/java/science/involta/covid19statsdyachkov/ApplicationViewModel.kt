@@ -10,10 +10,10 @@ import science.involta.covid19statsdyachkov.data.Repository
 class ApplicationViewModel(app: Application): AndroidViewModel(app) {
     private var repository: Repository = Repository(app)
     val country = MutableLiveData<String>()
-    var countries: LiveData<List<Country>>
-    var favoriteCountries: LiveData<List<Country>>
+    var countries: LiveData<List<Country>> = repository.getAllCountries()
+    var favoriteCountries: LiveData<List<Country>> = repository.getFavoriteCountries()
     var cities: LiveData<List<City>> = Transformations.switchMap(country) {
-        repository.getProvincesOf(it)
+        repository.getCitiesOf(it)
     }
 
     fun toggleFavoriteCountry(country: Country) {
@@ -29,14 +29,7 @@ class ApplicationViewModel(app: Application): AndroidViewModel(app) {
     }
 
     init {
-        repository.fetchCities().observeForever{
-            viewModelScope.launch {
-                repository.updateLocalCities(it)
-            }
-        }
-
-        countries = repository.getAllCountries()
-        favoriteCountries = repository.getFavoriteCountries()
+        repository.fetchData(viewModelScope, null)
 
     }
 
