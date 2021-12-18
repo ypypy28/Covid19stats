@@ -77,7 +77,6 @@ class MainActivity: AppCompatActivity() {
                     Log.d("LOCATION exception", e.message.toString())
                     Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
                 }
-//                topTextView?.text = "You are in ${appViewModel.country.value}"
 
             } else {
                 Toast.makeText(this, "Нет данных о геолокации", Toast.LENGTH_SHORT).show()
@@ -88,7 +87,8 @@ class MainActivity: AppCompatActivity() {
 
     private fun getCountryFromCoordinates(lat: Double, lon: Double): String {
 
-        val geocoder = Geocoder(this, Locale.getDefault())
+        // setting Locale.US because remote api sends name of Country in english
+        val geocoder = Geocoder(this, Locale.US)
         val adresses = geocoder.getFromLocation(lat, lon, 1)
         return adresses[0].countryName
 
