@@ -13,12 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import science.involta.covid19statsdyachkov.data.models.City
 import science.involta.covid19statsdyachkov.data.CityAdapter
+import java.text.SimpleDateFormat
 
 class FragmentListCities: Fragment(R.layout.fragment_list_cities) {
     private lateinit var appViewModel: ApplicationViewModel
     private var cityAdapter: CityAdapter? = null
     private lateinit var curCountry: TextView
     private var cities: List<City> = listOf()
+
+    private val dateParser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+    private val dateFormatter = SimpleDateFormat("HH:mm dd MMM yyy ")
+    private lateinit var dataUpdateString: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +32,7 @@ class FragmentListCities: Fragment(R.layout.fragment_list_cities) {
 
         val view = inflater.inflate(R.layout.fragment_list_cities, container, false)
 
+        dataUpdateString = resources.getString(R.string.lastUpdateString)
 
         appViewModel = ViewModelProvider(requireActivity()).get(ApplicationViewModel::class.java)
 
@@ -66,7 +72,13 @@ class FragmentListCities: Fragment(R.layout.fragment_list_cities) {
         cityAdapter = CityAdapter(cities,
             object:CityAdapter.CityClickListener {
             override fun onCityClick(city: City?) {
-                Toast.makeText(getContext(), "${city?.lastUpdate}", Toast.LENGTH_SHORT).show()
+                Log.d("COUNTRYCLICK", "${city?.lastUpdate}")
+                try {
+                    val updated = dateFormatter.format(dateParser.parse(city!!.lastUpdate))
+                    Toast.makeText(getContext(), "${dataUpdateString} ${updated}", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Log.d("COUNTRYCLICK Exception", e.message.toString())
+                }
             }
         })
 

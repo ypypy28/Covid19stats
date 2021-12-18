@@ -8,4 +8,5 @@
     <string name="total_recovered">выздоровело</string>
     <string name="no_data">нет данных</string>
     <string name="fragment_favorites_placeholder">Чтобы добавить страну в избранное, кликайте на сердечко</string>
+    <string name="lastUpdateString">Обновлено</string>
 </resources>
