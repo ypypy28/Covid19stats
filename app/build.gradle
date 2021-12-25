@@ -8,7 +8,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "science.involta.covid19statsdyachkov"
+        applicationId "ru.ypypy28.covid19stats"
         minSdk 23
         targetSdk 31
         versionCode 1

@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/nav_countries"
-        android:name="science.involta.covid19statsdyachkov.FragmentCountries"
+        android:name="ru.ypypy28.covid19stats.FragmentCountries"
         android:label="@string/full_list_nav"
         tools:layout="@layout/fragment_countries" >
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_list_cities"
-        android:name="science.involta.covid19statsdyachkov.FragmentListCities"
+        android:name="ru.ypypy28.covid19stats.FragmentListCities"
         android:label="@string/favorites_nav"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/nav_favorites"
-        android:name="science.involta.covid19statsdyachkov.FragmentFavorites"
+        android:name="ru.ypypy28.covid19stats.FragmentFavorites"
         android:label="@string/favorites_nav"
         tools:layout="@layout/fragment_favorites" >
         <action
